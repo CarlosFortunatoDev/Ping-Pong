@@ -28,6 +28,7 @@ const leftPaddle = {
     w: line.w,
     h: 200,
     draw(){ //Desenho raquete esquerda
+        canvasCtx.fillStyle = "#ffffff"
         canvasCtx.fillRect(this.x, this.y, this.w, this.h)
     }
 }
@@ -38,7 +39,20 @@ const rightPaddle = {
     w: line.w,
     h: 200,
     draw(){ //Desenho raquete direita
+        canvasCtx.fillStyle = "#ffffff"
         canvasCtx.fillRect(this.x, this.y, this.w, this.h)
+    }
+}
+
+const ball ={
+    x: 500,
+    y: 500,
+    r: 20,
+    draw(){    //Desenho Bola
+        canvasCtx.fillStyle = "#ffffff"
+        canvasCtx.beginPath()
+        canvasCtx.arc(this.x, this.y, this.r, 0, 2 * Math.PI, false)
+        canvasCtx.fill()
     }
 }
 
@@ -47,16 +61,14 @@ const setup = () => {
     canvasEl.height = canvasCtx.height = field.h
 }
 
+
 const draw = () =>{
     field.draw()
     line.draw()
     leftPaddle.draw()
     rightPaddle.draw()
+    ball.draw()
 
-    //Desenho Bola
-    canvasCtx.beginPath()
-    canvasCtx.arc(500,500,20,0, 2 * Math.PI, false)
-    canvasCtx.fill()
 
     //Desenho placar
     canvasCtx.font = "bold 72px Arial"
