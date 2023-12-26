@@ -1,6 +1,7 @@
 const canvasEl = document.querySelector("canvas")
 const canvasCtx = canvasEl.getContext("2d")
-const lineWidth = 15;
+const lineWidth = 15
+const gapX = 10
 
 const field ={
     w: window.innerWidth,
@@ -21,6 +22,26 @@ const line = {
     }
 }
 
+const leftPaddle = {
+    x: gapX,
+    y: 400,
+    w: line.w,
+    h: 200,
+    draw(){ //Desenho raquete esquerda
+        canvasCtx.fillRect(this.x, this.y, this.w, this.h)
+    }
+}
+
+const rightPaddle = {
+    x: field.w - line.w - gapX,
+    y: 400,
+    w: line.w,
+    h: 200,
+    draw(){ //Desenho raquete direita
+        canvasCtx.fillRect(this.x, this.y, this.w, this.h)
+    }
+}
+
 const setup = () => {
     canvasEl.width = canvasCtx.width = field.w
     canvasEl.height = canvasCtx.height = field.h
@@ -29,12 +50,8 @@ const setup = () => {
 const draw = () =>{
     field.draw()
     line.draw()
-
-    //Desenho raquete esquerda
-    canvasCtx.fillRect(10, 400, lineWidth, 200)
-
-    //Desenho raquete direita
-    canvasCtx.fillRect(window.innerWidth - lineWidth - 10, 400,lineWidth, 200)
+    leftPaddle.draw()
+    rightPaddle.draw()
 
     //Desenho Bola
     canvasCtx.beginPath()
