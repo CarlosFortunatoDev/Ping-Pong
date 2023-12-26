@@ -11,6 +11,10 @@ const draw = () =>{
     //Desenho do Campo
     canvasCtx.fillStyle = "#286047"
     canvasCtx.fillRect(0,0, window.innerWidth, window.innerHeight)
+
+    //Desenho linha central
+    canvasCtx.fillStyle = "#ffffff"
+    canvasCtx.fillRect(window.innerWidth / 2 - lineWidth / 2,0,lineWidth, window.innerHeight)
 }
 
 setup()
