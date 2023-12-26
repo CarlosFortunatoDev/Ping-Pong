@@ -5,10 +5,19 @@ const lineWidth = 15;
 const field ={
     w: window.innerWidth,
     h: window.innerHeight,
-    draw (){
-    //Desenho do Campo
-    canvasCtx.fillStyle = "#286047"
-    canvasCtx.fillRect(0,0, window.innerWidth, window.innerHeight)
+    
+    draw (){    //Desenho do Campo
+        canvasCtx.fillStyle = "#286047"
+        canvasCtx.fillRect(0,0, this.w, this.w)
+    }
+}
+
+const line = {
+    w: 15,
+    h: field.h,
+    draw() {    //Desenho linha central
+        canvasCtx.fillStyle = "#ffffff"
+        canvasCtx.fillRect(field.w / 2 - this.w / 2, 0, this.w, this.h)
     }
 }
 
@@ -19,10 +28,7 @@ const setup = () => {
 
 const draw = () =>{
     field.draw()
-
-    //Desenho linha central
-    canvasCtx.fillStyle = "#ffffff"
-    canvasCtx.fillRect(window.innerWidth / 2 - lineWidth / 2,0,lineWidth, window.innerHeight)
+    line.draw()
 
     //Desenho raquete esquerda
     canvasCtx.fillRect(10, 400, lineWidth, 200)
