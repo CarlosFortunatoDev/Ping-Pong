@@ -2,15 +2,23 @@ const canvasEl = document.querySelector("canvas")
 const canvasCtx = canvasEl.getContext("2d")
 const lineWidth = 15;
 
-const setup = () => {
-    canvasEl.width = canvasCtx.width = window.innerWidth
-    canvasEl.height = canvasCtx.height = window.innerHeight
-}
-
-const draw = () =>{
+const field ={
+    w: window.innerWidth,
+    h: window.innerHeight,
+    draw (){
     //Desenho do Campo
     canvasCtx.fillStyle = "#286047"
     canvasCtx.fillRect(0,0, window.innerWidth, window.innerHeight)
+    }
+}
+
+const setup = () => {
+    canvasEl.width = canvasCtx.width = field.w
+    canvasEl.height = canvasCtx.height = field.h
+}
+
+const draw = () =>{
+    field.draw()
 
     //Desenho linha central
     canvasCtx.fillStyle = "#ffffff"
