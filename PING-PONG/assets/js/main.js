@@ -15,12 +15,17 @@ const draw = () =>{
     //Desenho linha central
     canvasCtx.fillStyle = "#ffffff"
     canvasCtx.fillRect(window.innerWidth / 2 - lineWidth / 2,0,lineWidth, window.innerHeight)
-    
+
     //Desenho raquete esquerda
     canvasCtx.fillRect(10, 400, lineWidth, 200)
 
     //Desenho raquete direita
     canvasCtx.fillRect(window.innerWidth - lineWidth - 10, 400,lineWidth, 200)
+
+    //Desenho Bola
+    canvasCtx.beginPath()
+    canvasCtx.arc(500,500,20,0, 2 * Math.PI, false)
+    canvasCtx.fill()
 }
 
 setup()
