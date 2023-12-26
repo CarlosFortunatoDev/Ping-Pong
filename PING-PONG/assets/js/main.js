@@ -44,6 +44,19 @@ const rightPaddle = {
     }
 }
 
+const score = {
+    human: 3,
+    computer: 1,
+    draw(){ //Desenho placar
+        canvasCtx.font = "bold 72px Arial"
+        canvasCtx.textAlign = "center"
+        canvasCtx.textBaseline = "top"
+        canvasCtx.fillStyle = "#01341D"
+        canvasCtx.fillText(this.human, field.w/ 4, 50)
+        canvasCtx.fillText(this.computer, 3 * field.w / 4 , 50)
+    }
+}
+
 const ball ={
     x: 500,
     y: 500,
@@ -67,16 +80,8 @@ const draw = () =>{
     line.draw()
     leftPaddle.draw()
     rightPaddle.draw()
+    score.draw()
     ball.draw()
-
-
-    //Desenho placar
-    canvasCtx.font = "bold 72px Arial"
-    canvasCtx.textAlign = "center"
-    canvasCtx.textBaseline = "top"
-    canvasCtx.fillStyle = "#01341D"
-    canvasCtx.fillText("3", window.innerWidth / 4, 50)
-    canvasCtx.fillText("1", 3 * window.innerWidth / 4 , 50)
 }
 
 setup()
