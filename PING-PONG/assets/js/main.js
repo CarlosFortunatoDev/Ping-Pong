@@ -54,8 +54,14 @@ const rightPaddle = {
 }
 
 const score = {
-    human: 3,
-    computer: 1,
+    human: 0,
+    computer: 0,
+    increaseHuman(){
+        this.human ++
+    },
+    increaseComputer(){
+        this.human ++
+    },
     draw() { //Desenho placar
         canvasCtx.font = "bold 72px Arial"
         canvasCtx.textAlign = "center"
@@ -67,13 +73,39 @@ const score = {
 }
 
 const ball = {
-    x: 0,
-    y: 0,
+    x: field.w/2,
+    y: field.h/2,
     r: 20,
     speed: 5,
     directionX: 1,
     directionY: 1,
     _calcPosition(){
+        // Verifica se o jogador 1 fez um ponto (x > largura do campo)
+        if (this.x > field.w - this.r - rightPaddle.w - gapX) {
+            // Verifica se a raquete direita está na posição y da bola
+            if (this.y + this.r > rightPaddle.y && this.y - this.r < rightPaddle.y + rightPaddle.h) {
+                // Rebate a bola invertendo o sinal de x
+                this._reverseX()
+            } else{
+                // Pontuar para o jogador 1
+                increaseHuman()
+                this._pointUp()
+            }
+        }
+
+        // Verifica se o jogador 1 fez um ponto (x > largura do campo)
+        if (this.x < this.r + leftPaddle.w + gapX) {
+            // Verifica se a raquete esquerda está na posição y da bola
+            if (this.y + this.r > leftPaddle.y && this.y - this.r < leftPaddle.y + leftPaddle.h) {
+                // Rebate a bola invertendo o sinal de x
+                this._reverseX()
+            } else{
+                // Pontuar para o jogador 2
+                score.increaseComputer()
+                this._pointUp()
+            }
+        }
+
         // Verifica a lateral superior e inferior do campo
         if (
             (this.y - this.r < 0 && this.directionY < 0) ||
@@ -89,13 +121,17 @@ const ball = {
     _reverseX(){
         this.directionX *= -1
     },
+    _pointUp(){
+        this.x = field.w / 2 
+        this.y = field.h / 2 
+    },
     _move() {
         this.x += this.directionX * this.speed,
         this.y += this.directionY * this.speed
     },
     draw() {    //Desenho Bola
         canvasCtx.fillStyle = "#ffffff"
-        
+
         canvasCtx.beginPath()
         canvasCtx.arc(this.x, this.y, this.r, 0, 2 * Math.PI, false)
         canvasCtx.fill()
