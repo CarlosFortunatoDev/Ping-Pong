@@ -43,8 +43,16 @@ const rightPaddle = {
     y: 400,
     w: line.w,
     h: 200,
+    speed:1,
     _move(){
-        this.y = ball.y - this.h /2
+        if (this.y + this.h /2 < ball.y + ball.r) {
+            this.y += this.speed
+        } else{
+            this.y -= this.speed
+        }
+    },
+    speedUp(){
+        this.speed ++
     },
     draw() { //Desenho raquete direita
         canvasCtx.fillStyle = "#ffffff"
@@ -60,7 +68,7 @@ const score = {
         this.human ++
     },
     increaseComputer(){
-        this.human ++
+        this.computer ++
     },
     draw() { //Desenho placar
         canvasCtx.font = "bold 72px Arial"
@@ -88,7 +96,7 @@ const ball = {
                 this._reverseX()
             } else{
                 // Pontuar para o jogador 1
-                increaseHuman()
+                score.increaseHuman()
                 this._pointUp()
             }
         }
@@ -123,12 +131,14 @@ const ball = {
     },
 
     _speedUp(){
-        this.speed ++
+        this.speed +=2
     },
     _pointUp(){
+        this._speedUp()
+        rightPaddle.speedUp()
+
         this.x = field.w / 2 
         this.y = field.h / 2 
-        this._speedUp()
     },
     _move() {
         this.x += this.directionX * this.speed,
