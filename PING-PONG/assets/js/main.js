@@ -2,6 +2,7 @@ const canvasEl = document.querySelector("canvas")
 const canvasCtx = canvasEl.getContext("2d")
 const lineWidth = 15
 const gapX = 10
+const mouse = { x:0, y:0}
 
 const field = {
     w: window.innerWidth,
@@ -27,9 +28,13 @@ const leftPaddle = {
     y: 400,
     w: line.w,
     h: 200,
+    _move(){
+        this.y = mouse.y - this.h / 2
+    },
     draw() { //Desenho raquete esquerda
         canvasCtx.fillStyle = "#ffffff"
         canvasCtx.fillRect(this.x, this.y, this.w, this.h)
+        this._move();
     }
 }
 
@@ -111,3 +116,8 @@ const main = () => {
 
 setup()
 main()
+
+canvasEl.addEventListener("mousemove", function(e){
+    mouse.x = e.pageX;
+    mouse.y = e.pageY
+})
