@@ -43,9 +43,13 @@ const rightPaddle = {
     y: 400,
     w: line.w,
     h: 200,
+    _move(){
+        this.y = ball.y
+    },
     draw() { //Desenho raquete direita
         canvasCtx.fillStyle = "#ffffff"
         canvasCtx.fillRect(this.x, this.y, this.w, this.h)
+        this._move()
     }
 }
 
