@@ -121,9 +121,14 @@ const ball = {
     _reverseX(){
         this.directionX *= -1
     },
+
+    _speedUp(){
+        this.speed ++
+    },
     _pointUp(){
         this.x = field.w / 2 
         this.y = field.h / 2 
+        this._speedUp()
     },
     _move() {
         this.x += this.directionX * this.speed,
