@@ -3,13 +3,13 @@ const canvasCtx = canvasEl.getContext("2d")
 const lineWidth = 15
 const gapX = 10
 
-const field ={
+const field = {
     w: window.innerWidth,
     h: window.innerHeight,
-    
-    draw (){    //Desenho do Campo
+
+    draw() {    //Desenho do Campo
         canvasCtx.fillStyle = "#286047"
-        canvasCtx.fillRect(0,0, this.w, this.w)
+        canvasCtx.fillRect(0, 0, this.w, this.w)
     }
 }
 
@@ -27,7 +27,7 @@ const leftPaddle = {
     y: 400,
     w: line.w,
     h: 200,
-    draw(){ //Desenho raquete esquerda
+    draw() { //Desenho raquete esquerda
         canvasCtx.fillStyle = "#ffffff"
         canvasCtx.fillRect(this.x, this.y, this.w, this.h)
     }
@@ -38,7 +38,7 @@ const rightPaddle = {
     y: 400,
     w: line.w,
     h: 200,
-    draw(){ //Desenho raquete direita
+    draw() { //Desenho raquete direita
         canvasCtx.fillStyle = "#ffffff"
         canvasCtx.fillRect(this.x, this.y, this.w, this.h)
     }
@@ -47,25 +47,32 @@ const rightPaddle = {
 const score = {
     human: 3,
     computer: 1,
-    draw(){ //Desenho placar
+    draw() { //Desenho placar
         canvasCtx.font = "bold 72px Arial"
         canvasCtx.textAlign = "center"
         canvasCtx.textBaseline = "top"
         canvasCtx.fillStyle = "#01341D"
-        canvasCtx.fillText(this.human, field.w/ 4, 50)
-        canvasCtx.fillText(this.computer, 3 * field.w / 4 , 50)
+        canvasCtx.fillText(this.human, field.w / 4, 50)
+        canvasCtx.fillText(this.computer, 3 * field.w / 4, 50)
     }
 }
 
-const ball ={
+const ball = {
     x: 500,
     y: 500,
     r: 20,
-    draw(){    //Desenho Bola
+    speed: 5,
+    _move() {
+        this.x += 1 * this.speed,
+            this.y += 1 * this.speed
+    },
+    draw() {    //Desenho Bola
         canvasCtx.fillStyle = "#ffffff"
         canvasCtx.beginPath()
         canvasCtx.arc(this.x, this.y, this.r, 0, 2 * Math.PI, false)
         canvasCtx.fill()
+
+        this._move();
     }
 }
 
@@ -75,7 +82,7 @@ const setup = () => {
 }
 
 
-const draw = () =>{
+const draw = () => {
     field.draw()
     line.draw()
     leftPaddle.draw()
@@ -84,5 +91,23 @@ const draw = () =>{
     ball.draw()
 }
 
+window.animateFrame = (function () {
+    return (
+        window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        window.oRequestAnimationFrame ||
+        window.msRequestAnimationFrame ||
+        function (callback) {
+            return window.setTimeout(callback, 1000 / 60)
+        }
+    )
+})()
+
+const main = () => {
+    animateFrame(main)
+    draw()
+}
+
 setup()
-draw()
+main()
