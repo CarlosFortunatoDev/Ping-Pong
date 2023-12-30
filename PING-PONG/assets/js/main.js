@@ -44,7 +44,7 @@ const rightPaddle = {
     w: line.w,
     h: 200,
     _move(){
-        this.y = ball.y
+        this.y = ball.y - this.h /2
     },
     draw() { //Desenho raquete direita
         canvasCtx.fillStyle = "#ffffff"
@@ -67,20 +67,40 @@ const score = {
 }
 
 const ball = {
-    x: 500,
-    y: 500,
+    x: 0,
+    y: 0,
     r: 20,
     speed: 5,
+    directionX: 1,
+    directionY: 1,
+    _calcPosition(){
+        // Verifica a lateral superior e inferior do campo
+        if (
+            (this.y - this.r < 0 && this.directionY < 0) ||
+            (this.y > field.h - this.r && this.directionY > 0)
+            ) {
+                //rebate a bola invertendo o sinal do eixo y
+                this._reverseY()
+        }
+    },
+    _reverseY(){
+        this.directionY *= -1
+    },
+    _reverseX(){
+        this.directionX *= -1
+    },
     _move() {
-        this.x += 1 * this.speed,
-            this.y += 1 * this.speed
+        this.x += this.directionX * this.speed,
+        this.y += this.directionY * this.speed
     },
     draw() {    //Desenho Bola
         canvasCtx.fillStyle = "#ffffff"
+        
         canvasCtx.beginPath()
         canvasCtx.arc(this.x, this.y, this.r, 0, 2 * Math.PI, false)
         canvasCtx.fill()
 
+        this._calcPosition()
         this._move();
     }
 }
