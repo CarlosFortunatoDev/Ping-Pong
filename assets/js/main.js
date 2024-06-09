@@ -43,7 +43,7 @@ const rightPaddle = {
     y: 400,
     w: line.w,
     h: 200,
-    speed:1,
+    speed:10,
     _move(){
         if (this.y + this.h /2 < ball.y + ball.r) {
             this.y += this.speed
@@ -84,7 +84,7 @@ const ball = {
     x: field.w/2,
     y: field.h/2,
     r: 20,
-    speed: 5,
+    speed: 10,
     directionX: 1,
     directionY: 1,
     _calcPosition(){
@@ -137,8 +137,8 @@ const ball = {
         this._speedUp()
         rightPaddle.speedUp()
 
-        this.x = field.w / 2 
-        this.y = field.h / 2 
+        this.x = field.w / 2
+        this.y = field.h / 2
     },
     _move() {
         this.x += this.directionX * this.speed,
